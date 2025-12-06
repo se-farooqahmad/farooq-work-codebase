@@ -1,0 +1,176 @@
+# include<iostream>
+using namespace std;
+template <typename T>
+class Node
+{
+   public: 
+	     
+	     Node(T element);
+		 void setdata(T pval); 
+		 T getdata();
+		 Node* getnext();
+		 void setnext(Node *x);
+   private: 
+	     T data;
+		 Node *next ;
+};
+
+template <typename T>
+Node<T>::Node(T element)
+{
+	data=element;
+	next=NULL;
+}
+
+
+template <typename T>
+void Node<T>:: setdata(T pval)
+{
+	data=pval;
+}
+
+
+template <typename T>
+ T Node<T>::getdata()
+ {
+	 return data;
+ }
+template <typename T>
+Node<T> * Node<T>::getnext()
+{
+	return next; 
+}
+
+template <typename T>
+void Node<T>::setnext(Node *x)
+{
+	next=x;
+}
+
+
+
+
+template<typename T>
+
+class List
+{
+   public: 
+
+	     List();
+		 void Insert(Node<T>* pBefore, Node<T>* pNew);
+		 void Delete(Node<T>* pToBeDeleted);
+		 void printList();
+   private:
+	     Node<T> *first ;
+};
+template<typename T>
+List<T>::List()
+{
+	first=NULL;
+}
+template<typename T>
+void List<T>:: Insert(Node<T>* pbefore, Node<T>* pnew)
+{
+	if(pbefore)
+	{
+		Node<T>*temp=pbefore->getnext();
+		pnew->setnext(temp);
+		pbefore->setnext(pnew);
+	}
+	else
+	{
+		if(first==NULL)
+			first=pnew;
+		else
+		{
+			pnew->setnext(first);
+			first=pnew;
+		}
+
+	}
+}
+template<typename T>
+void List<T>::printList()
+{
+	Node<T>*temp=first;
+	if(temp==NULL)
+	{
+		cout<<"The list is empty."<<endl;
+	}
+	else
+	{
+		while(temp)
+		{
+			cout<<temp->getdata()<<"  ";
+			temp=temp->getnext();
+		}
+	}
+	cout << endl;
+}
+template<class T>
+void List<T>:: Delete(Node<T>* pToBeDeleted)
+{
+	Node<T>*temp=first;
+	if(temp)
+	{
+		if(pToBeDeleted==first)
+		{
+			Node<T>*temp=first;
+			first=first->getnext();
+			delete temp;
+		}
+		else
+		{
+			while(temp->getnext()!=pToBeDeleted)
+			{
+				temp=temp->getnext();
+
+			}
+			temp->setnext(pToBeDeleted->getnext());
+			delete pToBeDeleted;
+		}
+	}
+	else
+	{
+		cout<<"List is empty."<<endl;
+	}
+}
+int main()
+{   int val;
+	
+	Node<int> *a, *b, *c, *d, *e;
+	
+	a = new Node<int>(1);
+	b = new Node<int>(2);
+	c = new Node<int>(3);
+	d = new Node<int>(4);
+	e = new Node<int>(5);
+
+
+	List<int> *list;
+
+	list = new List<int>();
+
+	list->Insert(0 , a);
+	list->Insert(a , b);
+	list->Insert(b , c);
+	list->Insert(c , d);
+	list->Insert(d, e);
+
+list->printList();
+
+	list->Delete(a);
+	
+cout<<"\nAfter deleting first node"<<endl;
+	list->printList();
+
+	cout<<"Printing linked list recursively reverse"<<endl;
+
+//list->printReverse();
+
+		
+	
+	system("pause");
+	return 0;
+
+}

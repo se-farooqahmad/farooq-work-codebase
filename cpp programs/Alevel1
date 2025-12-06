@@ -1,0 +1,13 @@
+procedure stars(integer Number)
+    for i 1 to Number
+        output "*"
+    next
+end procedure
+
+main()
+{
+    declare n as integer
+    output "Enter number of stars"
+    input n
+    call stars(n)
+}

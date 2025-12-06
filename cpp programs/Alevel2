@@ -1,0 +1,14 @@
+function stars()
+    declare number as integer
+    output "Enter number of stars"
+    input number
+    for i 1 to number
+        output "*"
+    next
+    return 0
+end function
+
+main()
+{
+    call stars()
+}
