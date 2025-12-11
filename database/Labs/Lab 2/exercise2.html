@@ -1,0 +1,55 @@
+<html>
+    
+    <head>
+        
+        <title>Exercise 2</title>
+    
+    </head>
+    
+    <body>
+        
+        <p>This webpage converts celsius to farenheit</p>
+        
+        <br/>
+        
+        <input type="number" id="celsius-input"> Celsius
+        
+        <br/>
+        <br/>
+        
+        <input type="number" id="farenheit-input"> Farenheit
+        
+        <br/>
+        <br/>
+        
+        <button type="button" id="celsius-to-farenheit-button" onclick="celsiusToFarenheit()">covert Celsius to Farenheit</button>
+        
+        <button type="button" id="farenheit-to-celsius-button" onclick="farenheitToCelsius()">covert Farenheit to Celsius</button>
+        
+        <script language="javascript">
+            
+            function celsiusToFarenheit()
+            {
+                var celsius = "";
+                var farenheit = "";
+                
+                celsius = document.getElementById("celsius-input").value;
+                farenheit = (celsius * 9/5) + 32;
+                document.getElementById("farenheit-input").value = farenheit;
+            }
+            
+            function farenheitToCelsius()
+            {
+                var celsius = "";
+                var farenheit = "";
+                
+                farenheit = document.getElementById("celsius-input").value;
+                celsius = (farenheit - 32) * 5/9;
+                document.getElementById("celsius-input").value = celsius;
+            }
+            
+        </script>
+        
+    </body>
+
+</html>

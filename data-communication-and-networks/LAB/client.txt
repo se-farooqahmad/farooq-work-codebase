@@ -1,0 +1,39 @@
+#include <sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<stdio.h>
+#include <unistd.h>
+int main()
+{
+int sd;
+char msg[100];
+char username[100];
+char password[100];
+char* msg1="Also Connected";
+struct sockaddr_in server_addr;
+server_addr.sin_family=AF_INET;
+server_addr.sin_port=htons(4999);
+server_addr.sin_addr.s_addr=inet_addr("127.0.0.1");
+sd=socket(AF_INET,SOCK_STREAM,0);
+while(1){
+connect(sd,(struct sockaddr*)
+&server_addr,sizeof(struct sockaddr));
+recv(sd,msg,100,0);
+printf("%s\n",msg);
+fgets(username, 10, stdin);
+send(sd, username,100,0);
+recv(sd,msg,100,0);
+printf("%s\n",msg);
+fgets(password, 10, stdin);
+send(sd, password,100,0);
+recv(sd,msg,100,0);
+printf("%s\n",msg);
+if(strcmp(msg,"connected")==0)
+{
+send(sd, msg1,100,0);
+return 0;
+}
+}
+
+return 0;
+}

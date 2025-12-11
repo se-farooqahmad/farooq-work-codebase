@@ -1,0 +1,163 @@
+<html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<style>
+    .header{
+        height:15%;
+        width: 100%;
+    }
+    .backdrop{
+        background-color: white;
+        opacity: 40%;
+        margin-left: 10%;
+        width: 80%;
+        height: 100%;
+        align-self: center;
+        position: fixed;
+        z-index: -5;
+    }
+    .top-heading{
+        padding-top: 3%;
+    }
+    .header-img{
+        z-index:-10;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+    }
+    .heading, .buttons{
+        text-align: center;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+    }
+    .passenger-btn, .admin-btn{
+        width: 20%;
+        height: 100%;
+    }
+    .btn-link{
+        border: none;
+        text-decoration: none;
+        font-size: x-large;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        color: black;
+    }
+    .sub-heading{
+        margin-top: 10%;
+    }
+    .main-content{
+        margin-top: 2%;
+        margin-left: 15%;
+        align-self: center;
+    }
+    .input-field{
+        text-indent: 3%;
+        width: 80%;
+        border: none;
+        height: 13%;
+        border-radius: 2px;
+        margin-top: 2%;
+
+    }
+    .input_box{
+        margin-left: 10%;
+    }
+    #type-class{
+        margin-left: 10%;
+    }
+    h4 {
+        margin: 2%;
+    }
+    .buttons{
+        margin-top: 6%;
+        margin-left: -25%;
+        margin-bottom: 10%;
+    }
+    .btnbtn{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: small;
+        margin-top: 1%;
+        border: none;
+        border-radius: 10px;
+        width: 18%;
+        height: 15%;
+    }
+</style>
+<body>
+    <img class="header-img" src="./airplane.jpg" alt="Airplane Image">
+    <div class="container backdrop"></div>
+    <div class="container">
+        <nav class="header">
+            <div class="col-xl-12">
+                <h1 class="heading top-heading">Airline Management System</h1>
+            </div>
+        </nav>
+        
+        <div class="row page">
+            <div class="col-xl-4"></div>
+            <div class="col-xl-4">
+                <h3 class="heading sub-heading">PASSENGER DETAILS</h3>
+            </div>
+            <div class="col-xl-4"></div>
+        </div>
+    
+        <div class="row main-content">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-5">
+                <input class="input-field" id="name" placeholder="Enter Your Name">
+                <input class="input-field" id="p_id" placeholder="Passenger ID">
+                <input class="input-field" id="c_no" placeholder="Contact Number">
+                <input class="input-field" id="address" placeholder="Address"><br>
+                <h4>Type of Passenger:</h4>
+                <input class="input_box" type="radio" id="gold" value="Gold" onclick="gold_p()"><label>Gold</label><br>
+                <input class="input_box" type="radio" id="silver" value="Silver" onclick="silver_p()"><label>Silver</label><br>
+                <div class="type-attr" hidden>
+                    <div class="magazine" hidden>
+                        <h4>Type of Magazine:</h4>
+                        <input class="input-field" id="magazine-type" placeholder="Type of Magazine">
+                    </div>
+                    <div class="seat-prefer" hidden>
+                        <h4>Type of Seat Preference:</h4>
+                        <select name="seat" id="seat">
+                            <option value="window">Window</option>
+                            <option value="asile">Asile</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <h4>Type of Class:</h4>
+                <select name="type-class" id="type-class">
+                    <option value="bussiness">Bussiness</option>
+                    <option value="economy">Economy</option>
+                </select>
+
+                <div class="buttons">
+                    <button class="btn-success btnbtn">Register</button>
+                    <button class="btn-success btnbtn">Update</button>
+                    <button class="btn-danger btnbtn">Delete</button>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function gold_p(){
+            document.getElementsByClassName("type-attr")[0].removeAttribute("hidden");
+            document.getElementsByClassName("magazine")[0].removeAttribute("hidden");
+            document.getElementsByClassName("seat-prefer")[0].setAttribute("hidden",true);
+        }
+
+        function silver_p(){
+            document.getElementsByClassName("type-attr")[0].removeAttribute("hidden");
+            document.getElementsByClassName("seat-prefer")[0].removeAttribute("hidden");
+            document.getElementsByClassName("magazine")[0].setAttribute("hidden", true);
+        }
+
+    </script>
+
+
+
+</body>
+</html>

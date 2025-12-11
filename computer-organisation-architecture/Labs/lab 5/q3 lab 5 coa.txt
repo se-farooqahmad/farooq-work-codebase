@@ -1,0 +1,23 @@
+; A PROGRAM TO DECREMENT
+; USING REGISTERS
+
+[ORG 0x0100]
+mov ax,0
+mov cx,10
+l1:
+push ax
+inc ax
+loop l1
+
+sub sp,20
+cmp sp,fffe
+again:
+jnz 
+mov cx,10
+l2:
+pop ax
+dec ax
+loop l2
+
+MOV AX, 0X4C00;TERMINATE PROGRAM
+INT 0x21

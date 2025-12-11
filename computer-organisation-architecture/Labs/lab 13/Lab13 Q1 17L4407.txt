@@ -1,0 +1,22 @@
+[ORG 0x0100] 
+
+mov cx,7
+push ds
+push es 
+
+cld;
+mov ax,str1
+mov si,ax
+mov ax,str2
+mov di,ax
+ 
+repe cmpsb
+ 
+ 
+MOV AX, 0x4C00 ; TERMINATE PROGRAM 
+INT 0x21
+
+str1:
+	db 'My name is Khan and I am not A TERRORIST',0
+str2:
+	db 'My larger string',0

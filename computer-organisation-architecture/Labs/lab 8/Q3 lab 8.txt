@@ -1,0 +1,37 @@
+[ORG 0x0100]
+mov ax,0	
+mov bx,0	
+mov di,16
+mov cx,[q]	
+mov dx,[m]	
+again:
+mov si,1
+and si,cx
+cmp si,1 
+je yes
+no:
+jmp shift
+yes: 
+add bx,dx
+jc set
+jmp shift
+set:
+mov ax,1
+jmp shift
+shift:
+clc
+rcr ax,1
+rcr bx,1
+rcr cx,1
+clc
+dec di
+cmp di,0
+je end_code
+jmp again
+
+end_code:
+MOV AX, 0x4C00 ; TERMINATE PROGRAM
+INT 0x21
+q: dw 200
+m: dw 256
+

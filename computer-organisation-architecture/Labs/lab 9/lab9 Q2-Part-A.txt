@@ -1,0 +1,63 @@
+[org 0x0100]
+
+call addtoSet
+call callSet
+jmp end
+
+
+addtoSet:
+mov SI,0
+mov ax,r1
+mov [offsets+SI],ax
+add SI,2
+mov ax,r1
+mov [offsets+SI],ax
+add SI,2
+mov ax,r1
+mov [offsets+SI],ax
+add SI,2
+mov ax,r1
+mov [offsets+SI],ax
+add SI,2
+mov ax,r1
+mov [offsets+SI],ax
+add SI,2
+ret
+callSet:
+mov SI,0
+mov ax,[offsets+SI]
+call ax
+add SI,2
+mov ax,[offsets+SI]
+call ax
+add SI,2
+mov ax,[offsets+SI]
+call ax
+add SI,2
+mov ax,[offsets+SI]
+call ax
+add SI,2
+mov ax,[offsets+SI]
+call ax
+add SI,2
+ret
+
+r1:
+add ax,0x0001
+ret
+r2:
+add ax,0x0002
+ret
+r3:
+add ax,0x0003
+ret
+r4:
+add ax,0x0004
+ret
+r5:
+add ax,0x0005
+ret
+end:
+mov ax, 0x4c00 ; terminate program
+int 0x21
+offsets: dw 0,0,0,0,0

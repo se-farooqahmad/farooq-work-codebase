@@ -1,0 +1,250 @@
+#include<iostream>
+#include<Windows.h>
+using namespace std;
+
+template <typename T>
+class Node
+{
+   public: 
+	     Node()
+		 {
+			 data=0;
+			 next = NULL;
+		 }
+	     Node(T element);
+		 void setdata(T pval); 
+		 T getdata();
+		 Node* getnext();
+		 void setnext(Node *x);
+   private: 
+	     T data;
+		 Node *next ;
+};
+
+
+template <typename T>
+void Node<T>:: setdata(T pval)
+{
+	data=pval;
+}
+
+
+template <typename T>
+ T Node<T>::getdata()
+ {
+	 return data;
+ }
+template <typename T>
+Node<T> * Node<T>::getnext()
+{
+	return next; 
+}
+
+template <typename T>
+void Node<T>::setnext(Node *x)
+{
+	next=x;
+}
+
+
+
+
+template<typename T>
+
+class List
+{
+   public: 
+
+	     List();
+		 void Insert(Node<T>* pBefore, Node<T>* pNew);
+		 void Delete(Node<T>* pToBeDeleted);
+		 void printList();
+		 Node<T> *getfirst(){
+			 return first;
+		 }
+   private:
+	     Node<T> *first ;
+};
+template<typename T>
+List<T>::List()
+{
+	first=NULL;
+}
+template<typename T>
+void List<T>:: Insert(Node<T>* pbefore, Node<T>* pnew)
+{
+	if(pbefore)
+	{
+		Node<T>*temp=pbefore->getnext();
+		pnew->setnext(temp);
+		pbefore->setnext(pnew);
+	}
+	else
+	{
+		if(first==NULL)
+			first=pnew;
+		else
+		{
+			pnew->setnext(first);
+			first=pnew;
+		}
+
+	}
+}
+template<typename T>
+void List<T>::printList()
+{
+	Node<T>*temp=first;
+	if(temp==NULL)
+	{
+		cout<<"The list is empty."<<endl;
+	}
+	else
+	{
+		while(temp)
+		{
+			cout<<temp->getdata()<<endl;
+			temp=temp->getnext();
+		}
+	}
+}
+template<class T>
+void List<T>:: Delete(Node<T>* pToBeDeleted)
+{
+	Node<T>*temp=first;
+	if(temp)
+	{
+		if(pToBeDeleted==first)
+		{
+			Node<T>*temp=first;
+			first=first->getnext();
+			delete temp;
+		}
+		else
+		{
+			while(temp->getnext()!=pToBeDeleted)
+			{
+				temp=temp->getnext();
+
+			}
+			temp->setnext(pToBeDeleted->getnext());
+			delete pToBeDeleted;
+		}
+	}
+	else
+	{
+		cout<<"List is empty."<<endl;
+	}
+}
+template<class DT>
+class Hashtable
+{
+	private:
+	int size;
+	List<DT>** arr;
+public:
+
+	Hashtable(int Size)
+	{
+		size = Size;
+		arr=new List<DT> *[Size];
+		for(int i=0;i<Size;i++)
+			arr[i]=new List<DT>();
+	}
+	bool store(DT key)
+	{
+		int index = key%size;
+		Node<DT> *temp=arr[index]->getfirst();
+			Node<DT> *temp2=new Node<DT>();
+			temp2->setdata(key);
+		if(search(key))
+			return false;
+		
+		
+		if(temp==NULL)
+		{
+			arr[index]->Insert(0,temp2);
+		}
+		else
+		{
+			while(temp->getnext()!=NULL)
+			{
+				temp = temp->getnext();
+			}
+
+			arr[index]->Insert(temp,temp2);
+		}
+		return true;
+	}
+		
+	bool search(DT identifier)
+{
+	bool success=false;
+	int location = identifier%size;
+	if(arr[location])
+	{
+		Node<DT> *n= arr[location]->getfirst();
+		while(n)
+		{
+			if(n->getdata()==identifier)
+			{
+				  success=true;
+				break;
+			}
+			n=n->getnext();
+		}
+	}
+	else
+		success=false;
+	
+return success;
+	
+}
+
+
+
+};
+
+
+
+int main()
+{
+	int num_of_identifiers;
+	cout<<"Enter maximum number of keys that need to be stored in the hashtable: ";
+	cin>>num_of_identifiers;
+
+	int size_hashtable;
+	cout<<"Enter size of hashtable needed to store these many identifiers (hint: use prime number): ";
+	cin>>size_hashtable;
+
+	//create a hashtable of this size 
+	Hashtable<int>* ht=new Hashtable<int>(size_hashtable);
+	
+	for (int i=0; i<num_of_identifiers; i++)
+	{
+		int key=rand()%1000;
+		bool was_stored = ht->store(key);
+		if(!was_stored)
+			cout<<key<<" could not be stored as it already exists or table is full"<<endl;
+		//cout<<key<<endl;
+	}
+
+	int find_key;
+	cout<<"Enter the key to search for "<<endl;
+	cin>>find_key;
+
+	DWORD start, end;//measure time
+	start= GetTickCount();
+	bool found= ht->search(find_key);
+	end= GetTickCount();
+	double cpu_time_used = end - start;
+
+	if(found) 
+		cout<<"it was found in "<<cpu_time_used<<" milliseconds"<<endl;
+	else
+		cout<<"not found in "<<cpu_time_used<<" milliseconds"<<endl;
+
+	return 0;
+}
+
+

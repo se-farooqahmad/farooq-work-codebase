@@ -1,0 +1,86 @@
+<html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<style>
+    .header{
+        height:15%;
+        width: 100%;
+    }
+    .backdrop{
+        background-color: white;
+        opacity: 40%;
+        margin-left: 10%;
+        width: 80%;
+        height: 100%;
+        align-self: center;
+        position: fixed;
+        z-index: -5;
+    }
+    .top-heading{
+        padding-top: 3%;
+    }
+    .header-img{
+        z-index:-10;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+    }
+    .heading, .buttons{
+        text-align: center;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+    }
+    .buttons{
+        margin-top: 10%;
+    }
+    .btnbtn{
+        margin-top: 1%;
+        border: none;
+        border-radius: 10px;
+    }
+    .passenger-btn, .admin-btn{
+        width: 20%;
+        height: 100%;
+    }
+    .btn-link{
+        border: none;
+        text-decoration: none;
+        font-size: x-large;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        color: black;
+    }
+    .sub-heading{
+        margin-top: 10%;
+    }
+</style>
+<body>
+    <img class="header-img" src="./airplane.jpg" alt="Airplane Image">
+    <div class="container backdrop"></div>
+    <div class="container">
+        <nav class="header">
+            <div class="col-xl-12">
+                <h1 class="heading top-heading">Airline Management System</h1>
+            </div>
+        </nav>
+        
+        <div class="row page ">
+            <div class="col-xl-4"></div>
+            <div class="col-xl-4">
+                <h1 class="heading sub-heading">USERS</h1>
+            </div>
+            <div class="col-xl-4"></div>
+        </div>
+    
+        <div class="row buttons">
+            <div class="col-sm-12">
+                <button class="passenger-btn btnbtn"><a class="btn-link" href="./passenger.html">Passenger</a></button>
+                <br>
+                <button class="admin-btn btnbtn"><a class="btn-link" href="./admin.html">Admin</a></button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

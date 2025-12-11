@@ -1,0 +1,32 @@
+#question1
+"""string = "My Name is Farooq Ahmad"
+vowels = ['a','e','i','o','u']
+count = 0
+for alphabet in string:
+    if alphabet.lower() in vowels:
+        count += 1
+print(f'vowels in my string are {count}')
+"""
+
+#question2
+"""lists = [[33, 120], [40], [30, 56, 25], [33, 120], [33], [40]]
+newlist = []
+for list in lists:
+    if list not in newlist:
+        newlist.append(list)
+print(f'the original list is {lists} \nthe new updated list is {newlist}')"""
+
+#question3
+"""mytuple = [(), (), ('',), ('a', 'b'), ('a', 'b', 'c'), ('d')]
+tuples = [value for value in mytuple if value]
+print(f'the original tuple list is {mytuple} \nthe new updated tuple list is {tuples}')"""
+
+#question4
+"""from collections import Counter
+dictonary1 = {'a': 100, 'b': 200, 'c':300}
+dictionary2 = {'a': 300, 'b': 200, 'd':400}
+dictionary = Counter(dictonary1) + Counter(dictionary2)
+print(f'the Counter dictionary is {dictionary}')"""
+
+
+

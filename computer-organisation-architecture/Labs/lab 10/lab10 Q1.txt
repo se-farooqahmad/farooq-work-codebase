@@ -1,0 +1,13 @@
+Code A
+Type 		no of instructions 	CPI	 total cycles
+Control 		9 		2 		18
+Data			9		3		27
+ALSU 			2		4		18
+Total execution time = 18+27+18 = 63
+
+Code B
+Type 		no of instructions 	CPI 	total cycles
+Control 		20 		2 		40
+Data 			12 		3 		36
+ALSU 			20 		4 		80
+Total execution time = 40+36+80 = 156

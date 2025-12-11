@@ -1,0 +1,38 @@
+[ORG 0x0100]
+mov ax,1
+mov bx,10
+mov cx,2
+push ax
+push bx
+push cx
+mov SI,0
+call insert
+pop cx
+pop bx
+pop ax
+
+inc ax
+inc cx
+
+call insert
+
+jmp end
+
+insert:
+mov [Array+SI],ax
+again:
+cmp ax,bx
+jg exit
+inc dx
+add ax,cx
+mov [Array+SI],ax
+inc SI
+jmp again
+
+exit:
+ret
+end:
+MOV AX, 0x4C00 ; TERMINATE PROGRAM
+INT 0x21
+
+Array: db 0,0,0,0,0

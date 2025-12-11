@@ -1,0 +1,16 @@
+main.out: main.o Student.o Teacher.o
+	g++ main.o Student.o Teacher.o -o main.out
+	
+main.o: main.cpp
+	g++ main.cpp -c
+	 
+Student.o: Student.cpp
+	g++ Student.cpp -c
+	
+Teacher.o: Teacher.cpp
+	g++ Teacher.cpp -c
+	
+clean:
+	rm -fr *o main
+	
+	

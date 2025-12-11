@@ -1,0 +1,33 @@
+; A PROGRAM TO DECREMENT
+; USING REGISTERS
+
+[ORG 0x0100]
+avg:
+push ax
+push bx
+add ax,bx
+mov bl,2
+div bl
+mov cl,bl
+pop ax
+pop bx
+ret
+
+sum:
+push ax
+push bx
+add ax,bx
+mov dx,ax
+pop ax
+pop bx
+ret 
+
+main:
+mov ax,10
+mov bx,15
+call avg
+call sum
+
+
+MOV AX, 0X4C00;TERMINATE PROGRAM
+INT 0x21

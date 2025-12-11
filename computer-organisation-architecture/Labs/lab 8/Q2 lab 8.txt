@@ -1,0 +1,31 @@
+[ORG 0x0100]
+mov AX,1100010110100010b
+mov cx,16
+again:
+ror ax,1
+jc count
+back:
+loop again
+
+jmp skip
+count:
+inc bx
+jmp back
+skip:
+mov ax,bx
+mov bx,0
+dobara:
+shr al,1
+jc iter
+wapis:
+cmp ax,1
+jne dobara
+
+jmp tapao
+
+iter:
+inc bx
+jmp wapis
+tapao:
+MOV AX, 0x4C00 ; TERMINATE PROGRAM
+INT 0x21

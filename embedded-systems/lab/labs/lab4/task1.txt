@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdint.h>
+#include "C:\ti\TivaWare_C_Series-2.1.4.178\inc\tm4c123gh6pm.h"
+#define SW1 *((volatile uint32_t *)0x40025040)
+void PortF_Init(void){
+SYSCTL_RCGCGPIO_R |= 0x00000020; // activate clock for Port F
+while((SYSCTL_PRGPIO_R&0x00000020) == 0){};// ready?
+GPIO_PORTF_LOCK_R = 0x4C4F434B; // unlock GPIO Port F
+GPIO_PORTF_CR_R = 0x14; // allow changes to PF2 & PF4
+GPIO_PORTF_DIR_R = 0x04; // PF4 in, PF2 out
+GPIO_PORTF_PUR_R = 0x10; // enable pull-up on PF4
+GPIO_PORTF_DEN_R = 0x14;} // enable digital I/O on PF2 & PF4}
+int main(void)
+{PortF_Init();
+while(1){
+if (!SW1)
+GPIO_PORTF_DATA_R=GPIO_PORTF_DATA_R^0x04;
+}
+}

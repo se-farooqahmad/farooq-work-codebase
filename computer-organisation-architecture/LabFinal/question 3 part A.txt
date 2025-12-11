@@ -1,0 +1,53 @@
+[org 0x0100]
+mov ax,0
+mov SI,0
+mov al,[array+SI]
+inc SI
+mov [0],al
+mov al,[array+SI]
+inc SI
+
+mov [1h],al
+mov al,[array+SI]
+inc SI
+
+mov [2h],al
+mov al,[array+SI]
+inc SI
+
+mov [3h],al
+mov al,[array+SI]
+inc SI
+
+mov [4h],al
+mov al,[array+SI]
+inc SI
+
+mov [5h],al
+mov al,[array+SI]
+inc SI
+
+mov [6h],al
+mov al,[array+SI]
+inc SI
+
+mov [7h],al
+mov al,[array+SI]
+inc SI
+
+mov [8h],al
+mov al,[array+SI]
+inc SI
+
+mov [9h],al
+mov al,[array+SI]
+inc SI
+
+mov [10h],al
+mov al,[array+SI]
+inc SI
+
+
+mov ax, 0x4c00 ; terminate program
+int 0x21
+array: db 1,2,5,8,9,55,90,100,101,105,110,0

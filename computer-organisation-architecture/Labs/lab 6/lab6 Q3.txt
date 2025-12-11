@@ -1,0 +1,14 @@
+[ORG 0x0100]
+mov cx,10
+mov SI,0
+mov ax,0
+mov bl,0
+here:
+mov bl,[Numbers+SI]
+add al,bl
+inc SI
+loop here
+MOV AX, 0x4C00 ; TERMINATE PROGRAM
+INT 0x21
+
+Numbers: db 59,75,86,92,58,18,8,29,92,32

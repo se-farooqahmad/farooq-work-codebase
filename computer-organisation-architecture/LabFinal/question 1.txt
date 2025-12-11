@@ -1,0 +1,10 @@
+[org 0x0100]
+mov cx,0
+add cx,0xDD
+add cx,0xFF
+add cx,0x5F
+add cx,0x66
+add cx,0x88
+mov bl,cl
+mov ax, 0x4c00 ; terminate program
+int 0x21

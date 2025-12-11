@@ -1,0 +1,226 @@
+[org 0x0100]
+[org 0x0100]
+mov ax,0
+mov SI,0
+mov al,[array+SI]
+inc SI
+mov [0],al
+mov al,[array+SI]
+inc SI
+
+mov [1h],al
+mov al,[array+SI]
+inc SI
+
+mov [2h],al
+mov al,[array+SI]
+inc SI
+
+mov [3h],al
+mov al,[array+SI]
+inc SI
+
+mov [4h],al
+mov al,[array+SI]
+inc SI
+
+mov [5h],al
+mov al,[array+SI]
+inc SI
+
+mov [6h],al
+mov al,[array+SI]
+inc SI
+
+mov [7h],al
+mov al,[array+SI]
+inc SI
+
+mov [8h],al
+mov al,[array+SI]
+inc SI
+
+mov [9h],al
+mov al,[array+SI]
+inc SI
+
+mov [10h],al
+mov al,[array+SI]
+inc SI
+
+
+
+;searching 5 in the binary tree
+
+;counting the total no of elements in the sorted array
+mov DI,0
+mov al,[Array+DI]
+again:
+inc DI
+mov al,[Array+DI]
+cmp al,0
+jne again
+mov dx,DI
+;dx stores the total no of elements in the array
+mov ax,DI
+mov bl,2
+div bl
+mov cx,ax
+;cx now stores the middle index of the array
+;checking the midle index
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+cmp al,bl
+jg upper_class
+;lower_class
+mov ax,cx
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+cmp al,bl
+jg upper
+;lower
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+up:
+inc DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+
+
+upper_class:
+sub dx,cx
+mov ax,dx
+mov bx,2
+div bx
+add ax,cx
+;checking upper_class' middle index
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+cmp al,bl
+jg greater
+;lesser
+mov ax,DI
+mov bx,cx
+sub ax,bx
+add ax,cx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+
+greater:
+mov ax,dx
+mov bx,DI
+sub ax,bx
+add ax,DI
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+upper:
+mov ax,cx
+mov bx,DI
+sub ax,bx
+add ax,cx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,5
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+equal:
+mov ax,1
+
+end:
+
+mov ax, 0x4c00 ; terminate program
+int 0x21
+array: db 1,2,5,8,9,55,90,100,101,105,110,0

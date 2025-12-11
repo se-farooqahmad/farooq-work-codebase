@@ -1,0 +1,115 @@
+#include<iostream>
+using namespace std;
+
+template<class KeyType>
+class Stack
+{ //
+private:
+	KeyType * arr;
+	int top;
+	int size;
+
+public:
+// constructor , creates an empty stack
+Stack( int s)
+{
+	arr = new KeyType[s];
+	top = -1;
+	size = s;
+}
+// returns true if Stack is full, otherwise return false
+bool IsFull()
+{
+	if(top == size - 1)
+		return true;
+	else
+		return false;
+}
+
+//If number of elements in the Stack is zero return true, otherwise return false
+bool IsEmpty()
+{
+	if( top == -1)
+		return true;
+	else
+		return false;
+}
+
+// If Stack is not full, insert item into the Stack. Must be an O(1) operation
+void Push(const KeyType item)
+{
+	if(!IsFull()){
+		top++;
+		arr[top]=item;
+	}
+	else
+		cout<<"Stack is full"<<endl;
+}
+
+// If Stack is empty return 0 or NULL;
+// else return appropriate item from the Stack. Must be an O(1) operation
+KeyType Pop()
+{
+	if(IsEmpty())
+		return 0;
+	else{
+		top--;
+		return arr[top+1];
+	}
+}
+
+
+
+
+};
+int main()
+{   	
+	Stack<int> *st =new Stack<int>(100);
+
+	if(st->IsEmpty())
+		cout<<"Stack is currently empty"<<endl;
+
+	st->Push(1);
+	st->Push(2);
+	st->Push(3);
+
+	while (!st->IsEmpty())
+	{
+		int value=st->Pop();
+		cout<<value<<endl;
+	}
+	
+
+	Stack<double> *s = new Stack<double>(100);
+	char exp[10];
+	cout<<"enter exp"<<endl;
+	cin>>exp;
+	for (int i=0; exp[i]!='\0';i++)
+	{
+		if(exp[i]>47 && exp[i]<58)
+		{
+			s->Push(exp[i]-'0');
+		}
+		else
+		{
+			switch (exp[i])
+		{
+			case '+' :
+			s->Push(s->Pop()+s->Pop());
+			break;
+			case '-' :
+			s->Push(s->Pop()-s->Pop());
+			break;
+			case '/' :
+			s->Push(s->Pop()/s->Pop());
+			break;
+			case '*' :
+			s->Push(s->Pop()*s->Pop());
+			break;
+		}
+		}	
+	}
+	cout<<s->Pop();
+	return 0;
+}
+

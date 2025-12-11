@@ -1,0 +1,70 @@
+/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation;
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#include "ns3/core-module.h"
+#include "ns3/network-module.h"
+#include "ns3/internet-module.h"
+#include "ns3/point-to-point-module.h"
+#include "ns3/applications-module.h"
+
+using namespace ns3;
+
+NS_LOG_COMPONENT_DEFINE ("FirstScriptExample");
+
+int
+main (int argc, char *argv[])
+{
+  Time::SetResolution (Time::NS);
+  LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);       //enable two logging components that are built into the Echo Client and Echo Server applications:
+  LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+
+  NodeContainer nodes;
+  nodes.Create (2);                                                      // creates 2 nodes
+
+  PointToPointHelper pointToPoint;
+  pointToPoint.SetDeviceAttribute ("DataRate", StringValue ("8Mbps"));   // sets data rate to 5mbps
+  pointToPoint.SetChannelAttribute ("Delay", StringValue ("4ms"));       // sets delay to 2ms
+
+  NetDeviceContainer devices;
+  devices = pointToPoint.Install (nodes);                                // installs a node to node link
+
+  InternetStackHelper stack;
+  stack.Install (nodes);                                                 // installs stack at nodes
+
+  Ipv4AddressHelper address;
+  address.SetBase ("192.168.40.0", "255.255.255.0");                         // sets address 
+
+  Ipv4InterfaceContainer interfaces = address.Assign (devices);          // sets device to interface
+
+  UdpEchoServerHelper echoServer (93);
+
+  ApplicationContainer serverApps = echoServer.Install (nodes.Get (1));  // installs echo server
+  serverApps.Start (Seconds (1.0));
+  serverApps.Stop (Seconds (10.0));
+
+  UdpEchoClientHelper echoClient (interfaces.GetAddress (1), 93);         //installs echo client     
+  echoClient.SetAttribute ("MaxPackets", UintegerValue (4));
+  echoClient.SetAttribute ("Interval", TimeValue (Seconds (1.0)));       // set echo client attribute
+  echoClient.SetAttribute ("PacketSize", UintegerValue (512));
+
+  ApplicationContainer clientApps = echoClient.Install (nodes.Get (0));  //sets echo client at node 0
+  clientApps.Start (Seconds (2.0));                                      // starts at 2 seconds
+  clientApps.Stop (Seconds (10.0));                                      // stops at 10 seconds
+
+  Simulator::Run ();
+  Simulator::Destroy ();
+  return 0;
+}

@@ -1,0 +1,31 @@
+node* delete(node *root, int data) {
+	if (root == NULL) 
+		return root;
+	else if (data < root->data) 
+		root->left = del(root->left, data);
+	else if (data > root->data) 
+		root->right = del(root->right, data);
+	else {
+		if (root->left == NULL && root->right == NULL) {
+			delete root;
+			root = NULL;
+		}
+		else if (root->left == NULL) {
+			node *temp = root;
+			root = root->right;
+			delete temp;
+		}
+		else if (root->right == NULL) {
+			node *temp = root;
+			root = root->left;
+			delete temp;
+		}
+		else {
+			node*temp = root->right;
+			while (temp->left != NULL)
+				temp = temp->left;
+			root->data = temp->data;
+			root->right = del(root->right, temp->data);
+		}
+	}
+	return root;

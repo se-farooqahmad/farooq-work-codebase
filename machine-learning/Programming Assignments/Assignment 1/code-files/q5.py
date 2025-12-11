@@ -1,0 +1,13 @@
+import pandas
+df=pandas.read_csv('C:\Users\Farooq\Downloads\Train file.csv')
+df.apply(lambda x: sum(x.isnull()),axis=0)
+df['LoanAmount'].fillna(df['LoanAmount'].mean(), inplace=True)
+df['CoapplicantIncome'].fillna(df['CoapplicantIncome'].mean(), inplace=True)
+df['Loan_Amount_Term'].fillna(df['Loan_Amount_Term'].mean(), inplace=True)
+df['ApplicantIncome'].fillna(df['ApplicantIncome'].mean(), inplace=True)
+df['Credit_History'].fillna(df['Credit_History'].mean(), inplace=True)
+df['Self_Employed'].fillna('No',inplace=True)
+df['Married'].fillna('No',inplace=True)
+df['Loan_Status'].fillna('No',inplace=True)
+df['LoanAmount_log'] = np.log(df['LoanAmount'])
+df['LoanAmount_log'].hist(bins=20)

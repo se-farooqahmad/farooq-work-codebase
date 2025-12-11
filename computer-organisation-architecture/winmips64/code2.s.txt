@@ -1,0 +1,11 @@
+.data
+A: .word 4
+B: .word 5
+C: .word 0
+.text
+main:
+ld r2, A(r0) ; r2=A
+ld r3, B(r0) ;r3=B
+dadd r1, r2, r3 ;r1=r2+r3
+dadd r6, r5, r4 ;r6=r5+r4
+halt

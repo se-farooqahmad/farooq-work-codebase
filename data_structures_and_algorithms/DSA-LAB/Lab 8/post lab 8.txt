@@ -1,0 +1,134 @@
+#include<iostream>
+#include<stack>
+#include<queue>
+using namespace std;
+template<class DT>
+class BNode
+{
+	private:
+	DT data;
+	BNode* leftchild;
+	BNode* rightchild;
+public:
+	BNode()
+	{
+		leftchild = NULL;
+		rightchild = NULL;
+		data = 0;
+	}
+	void setLeftChild(BNode<DT>* n)
+	{
+		leftchild = n;
+	}
+	BNode<DT>* getLeftChild()
+	{
+		return leftchild;
+	}
+	void setRightChild(BNode<DT>* n)
+	{
+		rightchild = n;
+	}
+	BNode<DT>* getRightChild()
+	{
+		return rightchild;
+	}
+	void setData(DT pdate)
+	{
+		data = pdate;
+	}
+	DT getData()
+	{
+		return data;
+	}
+
+
+};
+template<class DT>
+class BinaryTree
+{
+private:
+	BNode<DT>* root;
+public:
+	//constructor already done in Lab7, please reuse that code
+	BinaryTree()
+	{
+		root = NULL;
+	}
+
+	//Build Tree method already done in Lab7, please reuse that code
+	void BuildTree(DT *Arr, int Size)
+	{
+		BNode<DT>*n = new BNode<DT>[Size];
+		stack<BNode<int>*> *st = new stack<BNode<int>*>();
+		
+		for (int i = 1; i < Size; i++)
+		{
+			if (Arr[i] != 0)
+			{
+				st->push(Arr[i]);
+				if (i >= 2)
+				{
+					if (i % 2 == 0)
+					{
+						t=st->top();
+						st->pop();
+						n[i/2]->setLeftChild(st);
+					}
+					else
+					{
+						st = st->top();
+						st->pop();
+						n[i / 2]->setRightChild(st);
+					}
+				}
+				else if (Arr[i] == 0)
+				{
+					n[i] = NULL;
+				}
+			}
+		}
+		st = st->top();
+		st->pop();
+		root =st;
+	}
+
+	
+	void LevelOrder()
+	{
+		LevelOrder(root);
+	}
+
+	void LevelOrder(BNode<DT>*temp)
+	{
+		if (temp == NULL)
+			return;
+		queue<BNode<int>*> *q = new queue<BNode<int>*>();
+		q->push(temp);
+		while (!q->empty())
+		{
+			temp = q->front();
+			cout << temp->getData() << " ";
+			if (temp->getRightChild() != NULL)
+				q->push(temp->getRightChild());
+			if (temp->getLeftChild() != NULL)
+				q->push(temp->getLeftChild());
+			q->pop();
+		}
+	}
+
+};
+
+
+int main()
+{
+	BinaryTree<int> *BT=new BinaryTree<int>(); //creating an object of binary tree
+
+	//array to pass,0 means no node exists
+	int numbers[15] = { 0,1,2,3,4,5,6,7,8,9,10,0,12,13,14 };
+
+	BT->BuildTree(numbers, 15); //building the tree from the array
+	cout << "***************************************************" << endl;
+	BT->LevelOrder(0);
+	return 0;
+}
+

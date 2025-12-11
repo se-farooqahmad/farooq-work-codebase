@@ -1,0 +1,111 @@
+
+#include<iostream>
+using namespace std;
+template<class DT>
+class MaxHeap
+{
+	private:
+	DT *arr;
+	int no_of_elements;//heap size
+	int max_size;//allocated size
+
+public:
+	//part1: constructor initializes array of size maxsize
+	MaxHeap(int maxsize)
+	{
+		max_size = maxsize;
+		arr=new DT[maxsize];
+		no_of_elements = 0;
+	}
+	//part2: Inserts data into its appropriate position
+	//within the Heap
+	bool insert(const DT data)
+	{
+		if(no_of_elements>max_size)
+			return false;
+		else
+		{
+			arr[no_of_elements]=data;
+			if(no_of_elements!=0)
+			{
+				for( int i = no_of_elements; arr[(i-1)/2]<arr[i];i=(i-1)/2)
+				{
+					swap(arr[i],arr[(i-1)/2]);
+				}
+			}
+			no_of_elements++;
+				return true;
+			
+		}
+			
+		
+	}
+
+	//part3: removes the element present in the the root 
+	//of the Heap and readjusts it to form MaxHeap again
+	DT Delete()
+	{
+		//DT d=arr[0];
+		swap(arr[no_of_elements-1],arr[1]);
+		no_of_elements--;
+		if(no_of_elements!=0)
+			{
+				for( int i = no_of_elements; arr[(i-1)/2]<arr[i];i=(i-1)/2)
+				{
+					swap(arr[i],arr[(i-1)/2]);
+				}
+		}
+		return arr[no_of_elements] ;
+	}
+
+
+	//part4: prints all the data present in the Heap
+	//use the appropriate traversal 
+	void printContents()
+	{
+		for(int i=0; i<no_of_elements;i++)
+			cout<<arr[i]<<" ";
+	}
+
+	//part5: destructor, deletes the MaxHeap
+	~MaxHeap()
+	{
+		delete [] arr;
+	}
+
+
+
+};
+
+
+int main()
+{
+	MaxHeap<int> *mxHeap; //creating an object of maxheap
+	mxHeap=new MaxHeap<int>(40);
+
+	//insert following data in the MaxHeap
+	mxHeap->insert(12);
+	mxHeap ->insert(43);
+	mxHeap ->insert(9);
+	mxHeap ->insert(2);
+	mxHeap ->insert(14);
+	mxHeap ->insert(16);
+	mxHeap ->insert(13);
+	mxHeap ->insert(12);
+
+	mxHeap->printContents();
+
+	//Carry out 2 deletions from the MaxHeap
+	int output;
+	output=mxHeap->Delete();
+	cout<<"\n";
+	cout<<"Output of first deletion is  "<<output<<endl;
+	mxHeap->printContents();
+
+	output=mxHeap->Delete();
+	cout<<"\n";
+	cout<<"Output of second deletion is  "<<output<<endl;
+	mxHeap->printContents();
+
+	return 0;
+}

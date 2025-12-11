@@ -1,0 +1,149 @@
+#include <iostream>
+using namespace std;
+template <class T>
+class Node
+{
+public:
+	Node(T element)
+{
+	data = element;
+	link = NULL;
+}
+
+	void setData(T pVal)
+{
+	data = pVal;
+}
+
+	T getData()
+{
+	return data;
+}
+
+	Node* GetNext()
+{
+	return link;
+}
+
+	void SetNext(Node *x)
+{
+	link = x;
+}
+
+private:
+	T data;
+	Node *link;
+};
+
+
+
+
+template <class G>
+class List
+{
+public:
+	
+	List()
+{
+	first= NULL;
+}
+
+	
+	void Insert(Node<G>* pBefore, Node<G>* pNew)
+{
+	if(pBefore==NULL)
+	{
+		first=pNew;
+	}
+	else
+	{
+		pNew->SetNext(pBefore->GetNext());
+		pBefore->SetNext(pNew);
+		
+	}
+}
+
+	
+	void Delete(Node<G>* pToBeDeleted)
+ {
+	 Node<G> *temp;
+	 temp=first->GetNext();
+	 
+		 if(pToBeDeleted==first)
+		 {
+			 first=first->GetNext();
+			 delete pToBeDeleted;
+		 }
+	
+}
+ 
+
+	
+	void printList()
+{
+	 Node<G> *temporary;
+	 temporary=first;
+	 cout<<first->getData();
+	 while(temporary->GetNext()!= NULL)
+	 {
+
+		 temporary=temporary->GetNext();
+		 cout<<temporary->getData();
+		 
+	 }
+ }
+
+	/*void FindMax()
+	{
+		T max=first->Getdata();
+		Node<T>
+	
+	}*/
+
+	 /////////////////////////////////////void printReverse();
+
+private:
+	Node<G> *first;
+};
+
+
+
+
+
+
+int main()
+{   	
+	Node<int> *a, *b, *c, *d, *e;
+	
+	a = new Node<int>(1);
+	b = new Node<int>(2);
+	c = new Node<int>(3);
+	d = new Node<int>(4);
+	e = new Node<int>(5);
+
+
+	List<int> *list;
+
+	list = new List<int>();
+
+	list->Insert(0 , a);
+	list->Insert(a , b);
+	list->Insert(b , c);
+	list->Insert(a , d);
+	list->Insert(b, e);
+
+     list->printList();
+
+   list->Delete(a);
+	
+     cout<<"\nAfter deleting first node"<<endl;
+	list->printList();
+	
+     //list->FindMax();
+	
+    // list->printReverse();
+	
+	system("pause");
+	return 0;
+
+}

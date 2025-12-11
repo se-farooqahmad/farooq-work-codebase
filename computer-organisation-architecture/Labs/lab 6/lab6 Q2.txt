@@ -1,0 +1,33 @@
+[ORG 0x0100]
+mov SI,0
+mov DI,0
+mov BH,5AH
+again:
+
+MOV AL,[InString+DI]
+MOV AH,[InString+DI]
+inc DI
+
+cmp AH,BH
+jle tolower
+
+SUB AL,32
+mov [OutString+SI],AL
+inc SI
+
+MOV AL,[InString+DI]
+JNZ again
+jmp here
+
+tolower:
+ADD AL,32
+mov [OutString+SI],AL
+inc SI
+jmp again
+
+here:
+MOV AX, 0x4C00 ; TERMINATE PROGRAM
+INT 0x21
+
+InString: db "Your Name",0
+OutString: db ""

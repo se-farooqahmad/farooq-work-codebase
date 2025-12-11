@@ -1,0 +1,175 @@
+[ORG 0x0100]
+;searching 23 in the binary tree
+
+;counting the total no of elements in the sorted array
+mov DI,0
+mov al,[Array+DI]
+again:
+inc DI
+mov al,[Array+DI]
+cmp al,0
+jne again
+mov dx,DI
+;dx stores the total no of elements in the array
+mov ax,DI
+mov bl,2
+div bl
+mov cx,ax
+;cx now stores the middle index of the array
+;checking the midle index
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+cmp al,bl
+jg upper_class
+;lower_class
+mov ax,cx
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+cmp al,bl
+jg upper
+;lower
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+up:
+inc DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+
+
+upper_class:
+sub dx,cx
+mov ax,dx
+mov bx,2
+div bx
+add ax,cx
+;checking upper_class' middle index
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+cmp al,bl
+jg greater
+;lesser
+mov ax,DI
+mov bx,cx
+sub ax,bx
+add ax,cx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+
+greater:
+mov ax,dx
+mov bx,DI
+sub ax,bx
+add ax,DI
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+upper:
+mov ax,cx
+mov bx,DI
+sub ax,bx
+add ax,cx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+cmp al,bl
+jg up
+dec DI
+mov ax,DI
+mov bx,2
+div bx
+mov DI,ax
+mov al,[Array+DI]
+mov bl,23
+cmp al,bl
+je equal
+mov ax,0
+jmp end
+
+
+equal:
+mov ax,1
+
+end:
+MOV AX, 0x4C00 ; TERMINATE PROGRAM
+INT 0x21
+
+Array: db 2,5,8,12,16,23,38,56,72,91,0

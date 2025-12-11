@@ -1,0 +1,5 @@
+first we imprted the python files using pandas library
+three methods to compute the missing values
+1. mean/median
+2. mode
+3. most recent/frequently occured

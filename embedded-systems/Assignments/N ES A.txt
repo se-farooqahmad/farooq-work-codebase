@@ -1,0 +1,85 @@
+                                                            Embedded Systems
+                                                              Assignment 1
+
+
+Nayab Ahmad
+17L4498
+
+
+
+QUESTION 1:
+
+#include <iostd.h>
+#include "inc/tm4cgh6pm.h"
+
+#define SW1 (GPIO_PORTA_DATA_R&0x01)
+
+void Port_A_Init(void)
+{
+	SYSCTL_RCGCGPIO_R  |= 0x00000001; //activation of clock for port A
+	while((SYSCTL_PRGPIO_R&0x00000001) == 0){};//waiting for stablisation
+	GPIO_PORTA_CR_R = 0x0F; 
+	GPIO_PORTA_DIR_R = 0E; 
+	GPIO_PORTA_PUR_R = 0x01;
+	GPIO_PORTA_DEN_R = 0x0F; 
+}
+
+
+int main(void)
+{   
+	Port_A_Init();
+	while(1)
+	{
+	if(SW1 == 0x00)
+	{ 
+		GPIO_PORTA_DATA_R |= 0x02; // RedLED
+		delay(); 	
+		GPIO_PORTA_DATA_R |= 0x04; // GreenLED
+		delay();
+		GPIO_PORTA_DATA_R |= 0x08; // BlueLED
+		delay(); 
+	}
+	}
+}
+
+
+----------------------------------------------------------------------------------
+
+QUESTION 2:
+
+#define LED *((volatile uint32_t *) 0x40025008
+void PortF_Init(void)
+{
+	SYSCTL_RCGCGPIO_R |= 0x00000020; // 1) activate clock for Port F
+	while((SYSCTL_PRGPIO_R&0x00000020) == 0){};// ready?
+	GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock GPIO Port F
+	GPIO_PORTF_CR_R = 0x02;
+	GPIO_PORTF_DIR_R = 0x02;
+	GPIO_PORTF_PUR_R = 0x11;
+	GPIO_PORTF_DEN_R = 0x02;
+}
+
+void delay(void)
+{
+	SysTick->LOAD = 15999;
+	SysTick->CTRL = 0x5;
+	while((SysTick->CTRL & 0x10000) == 0){} 
+	SysTick->CTRL = 0;
+}
+
+void SysTick_AddDelay(uint32_t x)
+{
+	unsigned int i;
+	for(i=0; i<x; i++)
+	delay();	
+}
+
+int main(void)
+{
+	PortF_Init();
+	while(1)
+	{
+		LED ^= 0x02;
+		SysTick_AddDelay(250); //delay 0.25 second
+	}
+}

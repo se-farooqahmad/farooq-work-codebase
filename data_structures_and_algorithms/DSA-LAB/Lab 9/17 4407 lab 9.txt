@@ -1,0 +1,207 @@
+#include <iostream>
+#include<stack>
+#include<queue>
+using namespace std;
+
+template<class DT>
+class BNode
+{
+public:
+	BNode()
+
+	{
+
+		leftchild = NULL;
+		rightchild = NULL;
+	}
+	void setLeftChild(BNode<DT>* n)
+	{
+		leftchild=n;
+	}
+	BNode<DT>* getLeftChild()
+	{
+		return leftchild;
+	}
+	void setRightChild(BNode<DT>* n)
+	{
+		rightchild=n;
+	}
+	
+	BNode<DT>* getRightChild()
+	{
+		return rightchild;
+	}
+	
+	void setData(DT pdate)
+	{
+		data=pdate;
+	}
+	DT getData()
+	{
+		return data;
+	}
+
+
+private:
+	DT data;
+	BNode* leftchild;
+	BNode* rightchild;
+};
+
+template<class DType>
+class BinarySearchTree
+{
+	private:
+	BNode<DType> * root;
+
+public:
+	//part1: constructor
+	BinarySearchTree()
+	{
+		root = NULL;
+	}
+
+	//part2: Create and insert a BNode carrying data
+	//in the binary search tree. It return true if
+	//insertion takes place successfully and false otherwise
+	bool insert(const DType data)
+	{
+		BNode<DType>*temp = new BNode<DType>();
+		temp->setData(data);
+		if (root == NULL)
+			root = temp;
+		else
+		{
+			BNode<DType> * current;// = new BNode<DType>();
+			BNode<DType> * parent ;//= new BNode<DType>();
+			current = root;
+			parent=NULL;
+			while (current!=NULL)
+			{
+				parent = current;
+				if(data==current->getData())
+					return false;
+				else if(data>current->getData())
+					current = current->getRightChild();
+				else if(data<current->getData())
+					current = current->getLeftChild();
+			}
+			if(data<parent->getData() && parent->getLeftChild()==NULL)
+				parent->setLeftChild(temp);
+			if(data>parent->getData() && parent->getRightChild()==NULL)
+				parent->setRightChild(temp);
+		}
+		return true;
+	}
+
+	//part3: Search for data in the binary search tree
+	// and return the pointer of the node carrying data
+	//return null/0 if data doesn’t exist
+	BNode<DType> * search(const DType data)
+	{
+		BNode<DType>*temp = root;
+		while(temp!=NULL)
+		{
+			if(data == temp->getData()  )
+				return temp;
+			else if(data< temp->getData())
+				temp = temp->getLeftChild();
+			else if(data>temp->getData())
+				temp = temp->getRightChild();
+		}
+	}
+
+//part4: prints all the data present in the tree 
+	//sorted in ascending order
+	void printSorted()
+	{
+		BNode<DType>*temp;
+		temp  = root;
+		stack<BNode<int>*> *s= new stack<BNode<int>*>();
+		   if(temp!=NULL)
+		   {
+			   while(1)
+			   {
+				   if(temp!=NULL)
+				   {
+					   s->push(temp);
+					   temp = temp->getLeftChild();
+				   }
+				   else
+				   { 
+					   if(!s->empty())
+						{
+							temp = s->top();
+							s->pop();
+							cout<<temp->getData()<<" ";
+							temp=temp->getRightChild();
+						}
+				   else
+					    break;
+					}
+			 }
+		  }
+	}
+
+
+	//part5: delete the BNode carrying data from the 
+	//binary search tree. It return true if
+	//deletion takes place successfully and false otherwise0
+	bool Delete(const DType data);
+
+	
+	//part6: destructor, delete all nodes
+	~BinarySearchTree();
+
+
+
+};
+int main()
+{
+     //creating an object of binary search tree
+	BinarySearchTree<int> *BST = new BinarySearchTree<int>();
+
+	//following insertions should happen successfully as we are inserting unique values
+	BST->insert(13);
+	BST->insert(9);
+	BST->insert(16);
+	BST->insert(4);
+	BST->insert(2);
+	BST->insert(5);
+	BST->insert(-2);
+	BST->insert(3);
+	BST->insert(11);
+	BST->insert(10);
+
+	//this insertion should fail as 12 already exists in the Binary Search tree
+	BST->insert(12);
+
+    //prints data carried by the BST in sorted manner
+	BST->printSorted();
+
+	//the first search would be successful and second would fail
+	BNode<int>*n =BST->search(12);
+	if(n)
+	{
+		cout<<"Value exists"<<endl;
+	}
+   else
+   {
+    	cout<<"Value does not exist"<<endl;
+    }
+
+   n =BST->search(23);
+
+if(n)
+{
+	cout<<"Value exists"<<endl;
+}
+else
+{
+	cout<<"Value does not exist"<<endl;
+}
+
+system("pause");
+return 0;
+}
+

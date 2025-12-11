@@ -1,0 +1,60 @@
+[ORG 0x0100] 
+
+mov cx,17
+push ds
+push es 
+
+cld
+mov ax,str1
+mov si,ax
+mov ax,str2
+mov di,ax
+ 
+repe cmpsb
+mov cx,17
+jc str2large
+
+;str1larger
+
+mov ax,str1
+mov si,ax
+mov ax,larger
+mov di,ax
+repe movsb
+
+
+mov ax,str2
+mov si,ax
+mov ax,smaller
+mov di,ax
+repe movsb
+
+jmp end_code
+
+str2large:
+mov ax,str2
+mov si,ax
+mov ax,larger
+mov di,ax
+rep movsb
+
+mov ax,str1
+mov si,ax
+mov ax,smaller
+mov di,ax
+rep movsb
+
+end_code:
+ 
+MOV AX, 0x4C00 ; TERMINATE PROGRAM 
+INT 0x21
+
+str1:
+	db 'My name is Khan and I am not A TERRORIST',0
+str2:
+	db 'My larger string',0
+	
+larger:
+	db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+smaller:
+	db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

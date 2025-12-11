@@ -1,0 +1,9 @@
+.data
+A: .word 4
+B: .word 5
+C: .word 0
+.text
+main:
+dadd r1, r2, r3 ;r1=r2+r3
+dadd r6, r5, r4 ;r5 =r5+r4
+halt

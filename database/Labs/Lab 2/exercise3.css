@@ -1,0 +1,16 @@
+.table
+{
+    width: 30%;
+}
+
+#row1
+{
+    text-align: center;
+    font-family:sans-serif;
+}
+
+#row2
+{
+    text-align: right;
+    font-family: monospace;
+}

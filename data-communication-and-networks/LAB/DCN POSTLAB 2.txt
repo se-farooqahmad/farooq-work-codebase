@@ -1,0 +1,96 @@
+/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation;
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#include "ns3/core-module.h"
+#include "ns3/network-module.h"
+#include "ns3/internet-module.h"
+#include "ns3/point-to-point-module.h"
+#include "ns3/applications-module.h"
+
+using namespace ns3;
+
+NS_LOG_COMPONENT_DEFINE ("FirstScriptExample");
+
+int
+main (int argc, char *argv[])
+{
+  Time::SetResolution (Time::NS);
+  LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
+  LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+
+  NodeContainer nodes1;
+  nodes1.Create (3);
+  
+
+
+  PointToPointHelper pointToPoint1,pointToPoint2;
+  pointToPoint1.SetDeviceAttribute ("DataRate", StringValue ("8Mbps"));
+  pointToPoint1.SetChannelAttribute ("Delay", StringValue ("8ms"));
+  pointToPoint2.SetDeviceAttribute ("DataRate", StringValue ("8Mbps"));
+  pointToPoint2.SetChannelAttribute ("Delay", StringValue ("4ms"));
+
+  NetDeviceContainer devices,devices2;
+  devices = pointToPoint1.Install (nodes1.Get(0), nodes1.Get(1));
+   devices2=pointToPoint2.Install (nodes1.Get(2), nodes1.Get(1));
+  
+ 
+  InternetStackHelper stack;
+  stack.Install (nodes1);
+  
+  
+
+  Ipv4AddressHelper address1,address2, address3;
+  address1.SetBase ("192.168.1.0", "255.255.255.0");
+  address3.SetBase ("192.168.5.0", "255.255.255.0");
+   address2.SetBase ("192.168.41.0", "255.255.255.0");
+  
+  Ipv4InterfaceContainer interfaces = address1.Assign (devices);
+    Ipv4InterfaceContainer interfaces3 = address3.Assign (devices2);
+  Ipv4GlobalRoutingHelper :: PopulateRoutingTables();
+
+  UdpEchoServerHelper echoServer1 (93);
+
+  ApplicationContainer serverApps1 = echoServer1.Install (nodes1.Get(1));
+  serverApps1.Start (Seconds (1.0));
+  serverApps1.Stop (Seconds (16.0));
+  
+  
+
+  UdpEchoClientHelper echoClient(interfaces.GetAddress (1), 93);
+  echoClient.SetAttribute ("MaxPackets", UintegerValue (6));
+  echoClient.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
+ echoClient.SetAttribute ("PacketSize", UintegerValue (512));
+ 
+ UdpEchoClientHelper echoClient2 (interfaces3.GetAddress (1), 93);
+  echoClient2.SetAttribute ("MaxPackets", UintegerValue (6));
+  echoClient2.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
+ echoClient2.SetAttribute ("PacketSize", UintegerValue (512));
+
+  ApplicationContainer clientApps = echoClient.Install (nodes1.Get(0));
+clientApps.Start (Seconds (1.0));
+  clientApps.Stop (Seconds (6.0));
+  
+   ApplicationContainer clientApps2 = echoClient2.Install (nodes1.Get(2));
+clientApps2.Start (Seconds (6.0));
+  clientApps2.Stop (Seconds (16.0));
+  
+  
+  
+
+  Simulator::Run ();
+  Simulator::Destroy ();
+  return 0;
+}

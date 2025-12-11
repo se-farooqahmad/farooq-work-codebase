@@ -1,0 +1,15 @@
+[org 0x0100]
+mov cx,0x20
+mov sp,0x30
+mov bx,0x70
+mov ax,[bx]
+push ax
+again:
+inc bx
+mov ax,[bx]
+push ax
+loop again
+
+
+mov ax, 0x4c00 ; terminate program
+int 0x21

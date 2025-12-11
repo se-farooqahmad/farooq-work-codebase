@@ -1,0 +1,29 @@
+[org 0x0100]
+
+mov al,[M] 
+mov bl,[N]
+;M divided by N
+;al mein aye ga quotient
+;ah mein aye ga remainder
+
+again:
+div bl
+
+
+
+cmp ah,0
+je exit
+
+mov ax,bx
+mov bl,ah
+jmp again
+
+exit:
+mov [GCD],bl
+jmp end
+M:db 12
+N:db 8
+GCD: db 00h
+end:
+mov ax, 0x4c00 ; terminate program
+int 0x21

@@ -1,0 +1,8 @@
+.text
+main:
+ld r6, 0(r0) ; r6 =0
+ld r4, 4(r1) ; r4=4
+dsub r2, r6, r4 ;r2=r6-r4
+dmul r2, r6, r1 ;r2=r6xr1
+daddi r2, r2, 4 ;r2=r2+4
+halt

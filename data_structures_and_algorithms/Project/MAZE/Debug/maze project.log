@@ -1,0 +1,3 @@
+﻿  maze.cpp
+c:\users\efyudi\source\repos\maze project\maze project\stack.h(65): warning C4715: 'Stack<point>::Pop': not all control paths return a value
+  maze project.vcxproj -> C:\Users\efyudi\source\repos\maze project\Debug\maze project.exe

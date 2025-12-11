@@ -1,0 +1,6 @@
+Flags		IP	ZF	CF	SF	OF
+mov ax,0x1254	0103	0	0	0	0
+mov bx,0x0FFF	0106	0	0	0	0	
+add ax,0xEDAB	0109	0	0	1	0
+add ax,bx	010B	0	1	0	0
+add bx,0xF001	010F	1	1	0	0

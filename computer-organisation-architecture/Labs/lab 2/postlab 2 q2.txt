@@ -1,0 +1,5 @@
+mov CL,BL
+mov AX,DX
+mov AL,0x12
+mov AX,0x1234
+mov AX,0XFFFF

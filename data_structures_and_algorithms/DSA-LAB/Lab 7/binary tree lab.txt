@@ -1,0 +1,152 @@
+#include<iostream>
+using namespace std;
+template<class DT>
+class BNode
+{
+	private:
+	DT data;
+	BNode* leftchild;
+	BNode* rightchild;
+public:
+	BNode()
+	{
+		data = 0;
+		leftchild = NULL;
+		rightchild = NULL;
+	}
+	void setLeftChild(BNode<DT>* n)
+	{
+		leftchild = n;
+	}
+	BNode<DT>* getLeftChild()
+	{
+		return leftchild;
+	}
+	void setRightChild(BNode<DT>* n)
+	{
+		rightchild = n;
+	}
+	BNode<DT>* getRightChild()
+	{
+		return rightchild;
+	}
+	void setData(DT pdate)
+	{
+		data = pdate;
+	}
+	DT getData()
+	{
+		return data;
+	}
+
+};
+template<class DT>
+class BinaryTree
+{
+	private: 
+// you maay add any other private members which might be needed by recursive functions
+	BNode<DT>* root;
+public:
+	BNode<DT>* getRoot () {
+		return root;
+	}
+	//part1: constructor
+	BinaryTree ()
+	{
+		root = NULL;
+	}
+	void insert(DT data)
+	{
+		BNode<DT>* tempNode=new BNode<DT>;
+		BNode<DT>* current=new BNode<DT>;
+		BNode<DT>* parent=new BNode<DT>;
+		tempNode->setData(data);
+		tempNode->setLeftChild(NULL);
+		tempNode->setRightChild(NULL);
+		if(root == NULL)
+			root = tempNode;
+		else
+		{
+			current = root;
+			parent = NULL;
+			while(1)
+			{
+				parent = current;
+				if(data < parent->getData())
+				{
+					current = current->getLeftChild();
+				
+					if(current == NULL)
+						{
+							parent->setLeftChild(tempNode);
+							return;
+						}
+				}
+				else
+				{
+					current = current->getRightChild();
+				
+					if(current == NULL)
+						{
+							parent->setRightChild(tempNode);
+							return;
+						}
+				}
+			}
+		}
+	}
+	//part 2:
+	//Build the binary tree from the data given in the array.  
+	//If a node doesn't exist the array element is 0
+	void BuildTree(DT *Arr, int Size)
+	{
+		for(int i=0;i<Size;i++)
+		{
+			insert(Arr[i]);
+		}
+
+
+
+		
+		
+	}
+	//part3: post order traversal (recursive)
+	//you may call any other function with parameters which might be needed
+	void PostOrder();
+	//part4: pre order traversal (recursive)
+	// you may call any other function with parameters which might be needed
+	void PreOrder(BNode<DT> *t)
+	{//Pre Order Traversal of *t
+		if (t != NULL)
+		{
+			cout << t->getData();
+			PreOrder(t->getLeftChild());
+			PreOrder(t->getRightChild());
+		}
+	}
+	//part5: in order traversal (recursive)
+	// you may call any other function with parameters which might be needed
+	void InOrder();
+
+// part6: prints the height of the binary tree, you may pass any parameters needed
+	int calculateDepth();
+
+
+	
+};
+int main()
+{
+	//creating an object of binary tree
+	BinaryTree<int> *BT=new BinaryTree<int>();
+
+    //array to pass, -1 means no node exists
+	int Arr[15]={-1,1,2,3,4,5,6,7,8,9,10,-1,12,13,14};
+	//int Arr[]={1,2,3,4,5,6};
+	BT->BuildTree(Arr,15); //building the tree from the array
+	cout<<"***************************************************"<<endl;
+	BT->PreOrder(BT->getRoot());
+	
+	return 0;
+}
+
+

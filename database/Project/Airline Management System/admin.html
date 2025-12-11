@@ -1,0 +1,173 @@
+<html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<style>
+    .header{
+        height:15%;
+        width: 100%;
+    }
+    .backdrop{
+        background-color: white;
+        opacity: 40%;
+        margin-left: 10%;
+        width: 80%;
+        height: 100%;
+        align-self: center;
+        position: fixed;
+        z-index: -5;
+    }
+    .top-heading{
+        padding-top: 3%;
+    }
+    .header-img{
+        z-index:-10;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+    }
+    .heading, .buttons{
+        text-align: center;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+    }
+    .passenger-btn, .admin-btn{
+        width: 20%;
+        height: 100%;
+    }
+    .btn-link{
+        border: none;
+        text-decoration: none;
+        font-size: x-large;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        color: black;
+    }
+    .sub-heading{
+        margin-top: 10%;
+    }
+    .main-content{
+        margin-top: 2%;
+        margin-left: 15%;
+        align-self: center;
+    }
+    .input-field{
+        text-indent: 3%;
+        width: 80%;
+        border: none;
+        height: 5%;
+        border-radius: 2px;
+        margin-top: 2%;
+
+    }
+    .input_box{
+        margin-left: 10%;
+    }
+    #type-class{
+        margin-left: 10%;
+    }
+    h4 {
+        margin: 2%;
+    }
+    .buttons{
+        margin-top: 6%;
+        margin-left: -25%;
+        margin-bottom: 10%;
+    }
+    .btnbtn{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: small;
+        margin-top: 1%;
+        border: none;
+        border-radius: 10px;
+        width: 18%;
+        height: 10%;
+    }
+</style>
+<body>
+    <img class="header-img" src="./airplane.jpg" alt="Airplane Image">
+    <div class="container backdrop"></div>
+    <div class="container">
+        <nav class="header">
+            <div class="col-xl-12">
+                <h1 class="heading top-heading">Airline Management System</h1>
+            </div>
+        </nav>
+        
+        <div class="row page">
+            <div class="col-xl-4"></div>
+            <div class="col-xl-4">
+                <h3 class="heading sub-heading">ADMIN</h3>
+            </div>
+            <div class="col-xl-4"></div>
+        </div>
+    
+        <div class="row main-content">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-5">
+                <div class="flight-details">
+                    <h4>Flight Details</h4>
+                    <input class="input-field" id="flight-number" placeholder="Flight Number">
+                    <input class="input-field" id="pilot-id" placeholder="Pilot ID">
+                    <input class="input-field" id="pilot-name" placeholder="Pilot Name">
+                    <input class="input-field" id="experience" placeholder="Experience">
+
+                    <input class="input-field" type="number" id="age" placeholder="Age">
+
+                    <label><b>Plane Type: </b></label>
+                    <input class="input_box" type="radio" id="a_plane" value="a" onclick="a_plane()"><label>A</label>
+                    <input class="input_box" type="radio" id="b_plane" value="b" onclick="b_plane()"><label>B</label>
+                    <input class="input_box" type="radio" id="c_plane" value="c" onclick="c_plane()"><label>C</label>
+                    <input class="input_box" type="radio" id="d_plane" value="d" onclick="d_plane()"><label>D</label><br>
+
+                    <input class="input-field" type="number" id="plane-type-no" placeholder="Plane Type Number">
+                    <input class="input-field" id="aircraft-id" placeholder="Aircraft ID">
+                    <label><b>No. of Seats: </b><p id="seat-numbers">Select Plane Type!</p></label>
+                    
+                    <h4>City Details</h4>
+                    <input class="input-field" id="city" placeholder="Departure City">
+                    <input class="input-field" id="arrival-city" placeholder="Arrival City">
+
+                    <h4>Time Details</h4>
+                    <input class="input-field" id="d-time" placeholder="Departure Time">
+                    <input class="input-field" id="a-time" placeholder="Arrival Time">
+
+                    <h4>Meal Details</h4>
+                    <input class="input-field" id="meals-id" placeholder="Meals ID">
+
+                    <div class="buttons">
+                        <button class="btn-success btnbtn">Register</button>
+                        <button class="btn-success btnbtn">Update</button>
+                        <button class="btn-danger btnbtn">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function a_plane(){
+            document.getElementById("seat-numbers").innerHTML = "30";
+        }
+        function b_plane(){
+            document.getElementById("seat-numbers").innerHTML = "20";
+        }
+        function c_plane(){
+            document.getElementById("seat-numbers").innerHTML = "10";
+        }
+        function d_plane(){
+            document.getElementById("seat-numbers").innerHTML = "5";
+        }
+
+        function silver_p(){
+            document.getElementsByClassName("type-attr")[0].removeAttribute("hidden");
+            document.getElementsByClassName("seat-prefer")[0].removeAttribute("hidden");
+        }
+
+    </script>
+
+
+
+</body>
+</html>

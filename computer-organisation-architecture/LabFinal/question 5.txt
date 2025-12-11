@@ -1,0 +1,26 @@
+ORG 0x100
+mov SI,0
+mov ah,00
+mov al,03h
+int 10h 
+
+MOV AH, 06h    ; Scroll up function
+XOR AL, AL     ; Clear entire screen
+XOR CX, CX     ; Upper left corner CH=row, CL=column
+MOV DX, 184FH  ; lower right corner DH=row, DL=column 
+MOV BH, 11110000b ;background color = white and foreground color = black
+INT 10H
+again: 
+mov dl,[string+SI]
+cmp dl,0
+je terminate 
+inc SI
+mov ah,02h
+int 21h 
+
+jmp again
+terminate:
+
+MOV AX,0x4C00
+INT 21H
+string:db "Hello, How are you?",0

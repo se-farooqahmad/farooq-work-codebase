@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>This webpage convert Celsius to Fahrenheit and vice versa:</p>
+
+<p><input id="c" onkeyup="convert('C')"> Celsius</p>
+
+<p><input id="f" onkeyup="convert('F')"> Fahrenheit</p>
+
+<button onclick="convertToCelsius(f)">Celcius to Fahrenhet</button>
+
+<button onclick="convertToFahrenheit(c)">Fahrenhet to Celcius</button>
+
+<script>
+function convertToCelsius(degree) {
+  var x;
+  x = document.getElementById("c").value * 9 / 5 + 32;
+  document.getElementById("f").value = x;
+}
+</script>
+
+<script>
+function convertToFahrenheit(degree) {
+ var x;
+ x = (document.getElementById("f").value - 32) * 5 / 9;
+ document.getElementById("c").value = x;
+}
+</script>
+
+</body>
+</html>

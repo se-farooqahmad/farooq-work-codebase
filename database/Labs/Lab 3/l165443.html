@@ -1,0 +1,101 @@
+<html>
+
+    <head>
+    
+        <title>CCW-L165443</title>
+        
+        <style>
+            
+            body
+            {
+                background-color: lightgray;
+            }
+            
+            p
+            {
+                color: purple;
+            }
+            
+            .blue
+            {
+                color: blue;
+                border-color: blue;
+            }
+            
+            .red
+            {
+                color: red;
+                border-color: red;
+                border-radius: 20%;
+            }
+        
+        </style>
+        
+        <script language="javascript">
+            function convertAmount()
+            {
+                var amoount = "";
+                var converted = "";
+                
+                amount = document.getElementById("rupees-input").value;
+                
+                if(document.getElementById("medium-selected").value == "US Dollar")
+                {
+                    converted = amount * 0.0064;
+                }
+                else
+                {
+                    converted = amount * 0.0085;
+                }
+                
+                document.getElementById("converted-input").value = converted;
+                document.getElementById("programmed-by-input").value = "Haasin";
+            }
+            
+            function resetAll()
+            {
+                document.getElementById("rupees-input").value = "";
+                document.getElementById("converted-input").value = "";
+                document.getElementById("programmed-by-input").value = "";
+            }
+        </script>
+    
+    </head>
+    
+    <body>
+        
+        <h1 class="blue">Currency Converting Website</h1>
+        
+        <div>
+            
+            <p>Select Currency Medium: 
+                <select class="blue" id="medium-selected">
+                    <option>US Dollar</option>
+                    <option>Canadian Dollar</option>
+                </select>
+            </p>
+            
+            <p>
+                Please Enter amount in Rupees to Convert to you Selected Medium: 
+                <input class="blue" id="rupees-input" type="number"/>
+            </p>
+            
+            <button class="blue" id="convert-button" type="button" onclick="convertAmount()" style="border-radius: 20%;">Convert Rupees To Selected Medium</button>
+            
+            <p>
+                Amount from Rupees to your chosen medium:
+                <input class="blue" id="converted-input" type="text"/>
+            </p>
+            
+            <p>
+                Programmed by:
+                <input class="blue" id="programmed-by-input" type="text"/>
+            </p>
+            
+            <button class="red" id="reset-button" type="button" onclick="resetAll()">Reset</button>
+        
+        </div>
+    
+    </body>
+
+</html>

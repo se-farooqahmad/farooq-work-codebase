@@ -1,0 +1,97 @@
+#include<iostream>
+#include<Windows.h>
+using namespace std;
+
+int BubbleSort(int list[], int left, int right)
+{
+	int n=0;
+    for (int i=left; i < right; i++)
+         for (int  j=right ; j > i; j--)
+         {n++;
+               if (list[j] < list[j-1])
+	        {
+                    int temp=list[j];n++;
+			list[j]=list[j-1];n++;
+			list[j-1]=temp;n++;
+		  }
+          }
+	return n;
+}
+
+void quicksort(int list[],int left,int right)
+{
+	int pivot,i,j=0;
+	if(left<right)
+	{
+	i=left;j=right+1;
+	pivot=list[left];
+	do
+	{
+	do
+	{i++;
+	}	while(list[i]<pivot);
+	do
+	{j--;
+	}while(list[j]>pivot);
+	if(i<j)
+		swap(list[i],list[j]);
+	}
+	while(i<j);
+	swap(list[left],list[j]);
+	quicksort(list,left,j-1);
+	quicksort(list,j+1,right);
+	}
+}
+int main()
+{
+	int size;
+	cout<<"Enter array size: ";
+	cin>>size;
+
+	int *arrQ=new int[size];
+	int *arrB=new int[size];
+	DWORD start, end;
+	
+	for (int i=0; i<size; i++)
+		arrQ[i]=rand()%100;
+
+	for (int i=0; i<size; i++)//arrB is going to be a copy of arrQ
+		arrB[i]=arrQ[i];
+
+	if(size<=100)//display array contents on console before Quicksorting
+	for(int i=0; i<size;i++)
+		cout<<arrQ[i]<<" ";
+
+	cout<<endl;
+
+	start= GetTickCount();
+	quicksort(arrQ, 0, size-1);
+	end= GetTickCount();
+
+	double cpu_time_used = end - start;
+	cout<<" Time taken by Quicksort = "<<cpu_time_used<<"milliseconds"<<endl;
+	
+	if(size<=100)//display array contents on console after Quicksorting
+	{
+		for(int i=0; i<size;i++)
+			cout<<arrQ[i]<<" ";
+	}
+	cout<<endl<<endl;
+	if(size<=100)//display array contents on console before Bubblesorting
+	for(int i=0; i<size;i++)
+		cout<<arrB[i]<<" ";
+	cout<<endl;
+	start= GetTickCount();
+	int n=BubbleSort(arrB, 0, size-1);
+	end= GetTickCount();
+
+	cpu_time_used = end - start;
+	cout<<" Time taken by Bubblesort = "<<n<<"milliseconds"<<endl;
+
+	if(size<=100)//display array contents on console after Bubblesorting
+	for(int i=0; i<size;i++)
+		cout<<arrB[i]<<" ";
+
+	cout<<endl;
+	return 0;
+}

@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using MyWebSite.DAL;
+
+namespace MyWebSite
+{
+    public partial class Search : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        public void LoadGrid()
+        {
+            myDAL objMyDal = new myDAL();
+            ItemGrid.DataSource = objMyDal.SelectItem();//seting data source for this Grid
+            ItemGrid.DataBind(); //bind the data source to this grid
+        }// end of loadgrid
+
+        protected void Search_Button_Click(object sender, EventArgs e)
+        {
+
+            String Name = TextBox1.Text;
+            DataTable DT = new DataTable();
+
+            myDAL objMyDal = new myDAL();
+
+            int found;
+
+            found = objMyDal.SearchItem(Name, ref DT);
+
+            if (found > 0)
+            {
+                ItemGrid.DataSource = DT;
+                ItemGrid.DataBind();
+                message.InnerHtml = Convert.ToString("Following Items Found");
+
+
+
+            }
+            else
+            {
+                message.InnerHtml = Convert.ToString("Not Found");
+                ItemGrid.DataSource = null;
+                ItemGrid.DataBind();
+            }
+
+
+        }//end of function
+
+        protected void ItemGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            ItemGrid.EditIndex = -1;
+        }
+
+        protected void ItemGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            GridViewRow row = (GridViewRow)ItemGrid.Rows[e.RowIndex];
+            //==== getting the value from the respective controls=====
+            Label itemNo = (Label)ItemGrid.Rows[e.RowIndex].FindControl("txtItemNo");
+            TextBox ItemName = (TextBox)ItemGrid.Rows[e.RowIndex].FindControl("txtItemName");
+            TextBox TotalUnits = (TextBox)ItemGrid.Rows[e.RowIndex].FindControl("txtTotalUnits");
+            //========================================================
+            int itemNoValue = Convert.ToInt32(itemNo.Text.ToString());
+            string itemNameValue = ItemName.Text.ToString();
+            int totalUnits = Convert.ToInt32(TotalUnits.Text.ToString());
+
+            //=====updating the newly entered values in database====
+            myDAL objMyDal = new myDAL();
+            objMyDal.UpdateItem(itemNoValue, totalUnits, itemNameValue);
+            //======================================================
+            ItemGrid.EditIndex = -1;
+
+        }
+
+        protected void ItemGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            myDAL objMyDal = new myDAL();
+            GridViewRow row = ItemGrid.Rows[e.RowIndex];
+            int ItemID = Convert.ToInt32(row.Cells[2].Text.ToString());
+            int result = objMyDal.DeleteItem(ItemID);
+            if (result == -1)
+            {
+                ItemGrid.DataSource = objMyDal.SelectItem();
+                ItemGrid.DataBind();
+            }
+            else
+            {
+                string message = "No row deleted";
+                ClientScript.RegisterOnSubmitStatement(this.GetType(), "alert",
+
+                message.ToString());
+            }
+
+        }
+
+        protected void ItemGrid_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            ItemGrid.EditIndex = e.NewEditIndex;
+        }
+    }
+}

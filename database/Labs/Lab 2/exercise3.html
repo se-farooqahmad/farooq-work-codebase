@@ -1,0 +1,76 @@
+<html>
+    
+    <head>
+
+        <title>Post Lab</title>
+        <link rel="stylesheet" type="text/css" href="exercise3.css">
+        
+    </head>
+    
+    <body>
+    
+        <table class="table" border="1">
+        
+            <tr id="row1">
+                <td>UserName</td>
+                <td><input type="text" id="username-input"></td>
+            </tr>
+            
+            <tr id="row2">
+                <td>Password</td>
+                <td><input type="password" id="password-input"></td>
+            </tr>
+            
+        </table>
+        
+        <br/>
+        <br/>
+        
+        <button type="button" id="validate-button" onclick="fieldCheck()">Validate</button>
+        
+        <button type="button" id="reset-button" onclick="reset()">Reset</button>
+        
+        
+        <script language="javascript">
+            
+            function fieldCheck()
+            {
+                var username = "";
+                var password = "";
+                
+                username = document.getElementById("username-input").value;
+                password = document.getElementById("password-input").value;
+                
+                
+                if(username == "")
+                {
+                    document.getElementById("row1").style.backgroundColor = "red";
+                }
+                else
+                {
+                    document.getElementById("row1").style.backgroundColor = "green";
+                }
+                
+                if(password == "")
+                {
+                    document.getElementById("row2").style.backgroundColor = "red";
+                }
+                else
+                {
+                    document.getElementById("row2").style.backgroundColor = "green";
+                }
+            }
+            
+            function reset()
+            {
+                document.getElementById("username-input").value = "";
+                document.getElementById("password-input").value = "";
+                document.getElementById("row1").style.backgroundColor = "initial";
+                document.getElementById("row2").style.backgroundColor = "initial";
+            }
+            
+        </script>
+        
+    </body>
+    
+</html>
