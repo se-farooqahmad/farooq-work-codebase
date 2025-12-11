@@ -1,0 +1,47 @@
+# Windows
+Thumbs.db
+*.lnk
+desktop.ini
+
+# Office documents
+*.docx
+*.doc
+*.xlsx
+*.xls
+
+# Database
+*.mdf
+*.ldf
+*.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+
+# Temporary files
+~$*.docx
+*.tmp
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Logs
+*.log
+
+# Database connection files
+*.ini
+config.php
+database.php
